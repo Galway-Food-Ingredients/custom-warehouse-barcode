@@ -1,1 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?><odoo><record id="custom_stock_barcode_action_main_menu" model="ir.actions.client"><field name="name">Bakery Barcode</field><field name="path">custom-bakery-barcode</field><field name="tag">stock_barcode_main_menu</field><field name="target">fullscreen</field><field name="context">{'c':1}</field></record><menuitem id="custom_stock_barcode_menu" name="Bakery Barcode" action="custom_stock_barcode_action_main_menu" sequence="156"/></odoo>
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="custom_stock_barcode_action_main_menu" model="ir.actions.client">
+        <field name="name">Bakery Barcode</field>
+        <field name="path">custom-bakery-barcode</field>
+        <field name="tag">stock_barcode_main_menu</field>
+        <field name="target">fullscreen</field>
+        <field name="context">{'c': 1}</field>
+    </record>
+
+    <menuitem
+        id="custom_stock_barcode_menu"
+        name="Bakery Barcode"
+        action="custom_stock_barcode_action_main_menu"
+        sequence="156"
+    />
+</odoo>

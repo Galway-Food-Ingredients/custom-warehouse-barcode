@@ -1,2 +1,18 @@
 # -*- coding: utf-8 -*-
-{'name':'Custom Stock Barcode (XML only)','version':'18.0.1.1.6','depends':['stock_barcode'],'data':['views/custom_barcode_menu.xml','data/server_actions.xml'],'assets':{'web.assets_backend':['custom_stock_barcode/static/src/main_menu/main_menu_patch.xml']},'installable':True,'application':True,'license':'LGPL-3'}
+{
+    'name': 'Custom Stock Barcode (XML only)',
+    'version': '18.0.1.1.6',
+    'depends': ['stock_barcode'],
+    'data': [
+        'views/custom_barcode_menu.xml',
+        'data/server_actions.xml',
+    ],
+    'assets': {
+        'web.assets_backend': [
+            'custom_stock_barcode/static/src/main_menu/main_menu_patch.xml',
+        ],
+    },
+    'installable': True,
+    'application': True,
+    'license': 'LGPL-3',
+}
