@@ -17,7 +17,7 @@
                         </div>
                         <div class="o_stock_mobile_barcode text-primary fw-bold">welcome</div>
                     </div>
-                    <p>For <b>Warehouse Operations</b>: Please <b>Scan</b> the Barcode or <b>Select</b> Operation Type Below</p>
+                    <p class="text-center">Use Receipts for Book-In, and Delivery Orders for Book-Out</p>
                 </main>
             </t>
             <t t-else="">$0</t>
@@ -25,8 +25,8 @@
         <xpath expr="//footer" position="replace">
             <t t-if="props.action&amp;&amp;props.action.context&amp;&amp;props.action.context.warehouse_barcode_mode">
                 <footer>
-                    <button class="btn rounded-pill shadow mb-3 p-3 w-100" style="background-color:#4169E1;border-color:#4169E1;color:#FFFFFF" t-on-click="() => this.actionService.doAction('custom_inventory_barcode.action_warehouse_receipts')">📦 Receipts</button>
-                    <button class="btn rounded-pill shadow mb-3 p-3 w-100" style="background-color:#32CD32;border-color:#32CD32;color:#FFFFFF" t-on-click="() => this.actionService.doAction('custom_inventory_barcode.action_warehouse_delivery')">🚚 Delivery Orders</button>
+                    <button class="btn rounded-pill shadow mb-3 p-3 w-100 btn-primary" t-on-click="() => this.actionService.doAction('custom_inventory_barcode.action_warehouse_receipts')">Receipts</button>
+                    <button class="btn rounded-pill shadow mb-3 p-3 w-100 btn-success" t-on-click="() => this.actionService.doAction('custom_inventory_barcode.action_warehouse_delivery')">Delivery Orders</button>
                 </footer>
             </t>
             <t t-else="">$0</t>
