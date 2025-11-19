@@ -1,65 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
-    <t
-        t-name="custom_stock_barcode.MainMenuPatch"
-        t-inherit="stock_barcode.MainMenu"
-        t-inherit-mode="extension"
-    >
-        <xpath expr="//header/div" position="replace">
-            <t t-if="props.action&amp;&amp;props.action.context&amp;&amp;props.action.context.c" />
+    <t t-name="custom_warehouse_barcode.MainMenuPatch" t-inherit="stock_barcode.MainMenu" t-inherit-mode="extension">
+        <xpath expr="//header" position="replace">
+            <t t-if="props.action&amp;&amp;props.action.context&amp;&amp;props.action.context.warehouse_barcode_mode">
+                <header/>
+            </t>
             <t t-else="">$0</t>
         </xpath>
-
-        <xpath
-            expr="//main[hasclass('flex-grow-1')]/div[hasclass('my-5') and hasclass('text-center')]"
-            position="replace"
-        >
-            <t t-if="props.action&amp;&amp;props.action.context&amp;&amp;props.action.context.c">
-                <div class="my-5 text-center">
-                    <div class="o_barcode_tap_to_scan m-auto mw-50">
-                        <img
-                            src="/stock_barcode/static/img/barcode.png"
-                            alt="Barcode"
-                            class="my-1"
-                        />
-                        <div class="o_stock_barcode_laser" />
+        <xpath expr="//main[hasclass('flex-grow-1')]" position="replace">
+            <t t-if="props.action&amp;&amp;props.action.context&amp;&amp;props.action.context.warehouse_barcode_mode">
+                <main class="flex-grow-1">
+                    <div class="my-5 text-center">
+                        <div class="o_barcode_tap_to_scan m-auto mw-50">
+                            <img src="/stock_barcode/static/img/barcode.png" alt="Barcode" class="my-1"/>
+                            <div class="o_stock_barcode_laser"/>
+                        </div>
+                        <div class="o_stock_mobile_barcode text-primary fw-bold">welcome</div>
                     </div>
-                    <div class="o_stock_mobile_barcode text-primary fw-bold">welcome</div>
-                </div>
+                    <p>For <b>Warehouse Operations</b>: Please <b>Scan</b> the Barcode or <b>Select</b> Operation Type Below</p>
+                </main>
             </t>
             <t t-else="">$0</t>
         </xpath>
-
-        <xpath expr="//button[hasclass('o_button_operations')]" position="replace">
-            <t t-if="props.action&amp;&amp;props.action.context&amp;&amp;props.action.context.c" />
-            <t t-else="">$0</t>
-        </xpath>
-
-        <xpath expr="//button[hasclass('o_button_inventory')]" position="replace">
-            <t t-if="props.action&amp;&amp;props.action.context&amp;&amp;props.action.context.c" />
-            <t t-else="">$0</t>
-        </xpath>
-
-        <xpath expr="//main[hasclass('flex-grow-1')]/ul" position="replace">
-            <t t-if="props.action&amp;&amp;props.action.context&amp;&amp;props.action.context.c">
-                <p>
-                    For <b>Bakery Picks</b>: Please <b>Scan</b> the Barcode on Your Right
-                    or <b>Click</b> "Bakery Picks" Button
-                </p>
+        <xpath expr="//footer" position="replace">
+            <t t-if="props.action&amp;&amp;props.action.context&amp;&amp;props.action.context.warehouse_barcode_mode">
+                <footer>
+                    <button class="btn rounded-pill shadow mb-3 p-3 w-100" style="background-color:#4169E1;border-color:#4169E1;color:#FFFFFF" t-on-click="() => this.actionService.doAction('custom_inventory_barcode.action_warehouse_receipts')">📦 Receipts</button>
+                    <button class="btn rounded-pill shadow mb-3 p-3 w-100" style="background-color:#32CD32;border-color:#32CD32;color:#FFFFFF" t-on-click="() => this.actionService.doAction('custom_inventory_barcode.action_warehouse_delivery')">🚚 Delivery Orders</button>
+                </footer>
             </t>
             <t t-else="">$0</t>
-        </xpath>
-
-        <xpath expr="//footer" position="inside">
-            <t t-if="props.action&amp;&amp;props.action.context&amp;&amp;props.action.context.c">
-                <button
-                    class="btn rounded-pill shadow mb-3 p-3 w-100"
-                    style="background-color:#DAA520;border-color:#DAA520;color:#212529"
-                    t-on-click="() => this.actionService.doAction('custom_stock_barcode.action_new_bakery_picking')"
-                >
-                    Bakery Picks
-                </button>
-            </t>
         </xpath>
     </t>
 </templates>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_warehouse_receipts" model="ir.actions.act_window">
+        <field name="name">Receipts to Process</field>
+        <field name="res_model">stock.picking</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="domain">[('picking_type_id', '=', 1), ('user_id', 'in', [uid, False])]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <record id="action_warehouse_delivery" model="ir.actions.act_window">
+        <field name="name">Delivery Orders to Process</field>
+        <field name="res_model">stock.picking</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="domain">[('picking_type_id', '=', 2), ('user_id', 'in', [uid, False])]</field>
+        <field name="context">{}</field>
+    </record>
+</odoo>
