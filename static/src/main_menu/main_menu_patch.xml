@@ -1,1 +1,49 @@
-<?xml version="1.0" encoding="UTF-8"?><templates xml:space="preserve"><t t-name="custom_warehouse_barcode.MainMenuPatch" t-inherit="stock_barcode.MainMenu" t-inherit-mode="extension"><xpath expr="//header" position="replace"><t t-if="props.action&amp;&amp;props.action.context&amp;&amp;props.action.context.warehouse_barcode_mode"><header/></t><t t-else="">$0</t></xpath><xpath expr="//main[hasclass('flex-grow-1')]" position="replace"><t t-if="props.action&amp;&amp;props.action.context&amp;&amp;props.action.context.warehouse_barcode_mode"><main class="flex-grow-1"><div class="my-5 text-center"><div class="o_barcode_tap_to_scan m-auto mw-50"><img src="/stock_barcode/static/img/barcode.png" alt="Barcode" class="my-1"/><div class="o_stock_barcode_laser"/></div><div class="o_stock_mobile_barcode text-primary fw-bold">welcome</div></div><p class="text-center">Use Receipts for Book-In, and Delivery Orders for Book-Out</p></main></t><t t-else="">$0</t></xpath><xpath expr="//footer" position="replace"><t t-if="props.action&amp;&amp;props.action.context&amp;&amp;props.action.context.warehouse_barcode_mode"><footer><button class="btn rounded-pill shadow mb-3 p-3 w-100 btn-primary" t-on-click="() => this.actionService.doAction('custom_inventory_barcode.action_warehouse_receipts')">Receipts</button><button class="btn rounded-pill shadow mb-3 p-3 w-100 btn-success" t-on-click="() => this.actionService.doAction('custom_inventory_barcode.action_warehouse_delivery')">Delivery Orders</button><div class="border-top my-3"></div><button class="o_button_inventory btn btn-block btn-info mb-3 p-3 w-100" t-on-click="() => this.actionService.doAction('stock_barcode.stock_barcode_inventory_client_action')">Inventory count<span t-if="this.quantCount" class="ms-2 p-1 px-2 bg-light rounded-circle text-primary" t-out="this.quantCount"/></button></footer></t><t t-else="">$0</t></xpath></t></templates>
+<templates xml:space="preserve">
+<t t-name="custom_warehouse_barcode.MainMenuPatch" t-inherit="stock_barcode.MainMenu" t-inherit-mode="extension">
+    <xpath expr="//header" position="replace">
+        <t t-if="props.action&amp;&amp;props.action.context&amp;&amp;props.action.context.warehouse_barcode_mode">
+            <header/>
+        </t>
+        <t t-else="">$0</t>
+    </xpath>
+    
+    <!-- Disable the barcode hyperlink and edit the welcome message so operators can better understand the menu -->
+    <xpath expr="//main[hasclass('flex-grow-1')]" position="replace">
+        <t t-if="props.action&amp;&amp;props.action.context&amp;&amp;props.action.context.warehouse_barcode_mode">
+            <main class="flex-grow-1">
+                <div class="my-5 text-center">
+                    <div class="o_barcode_tap_to_scan m-auto mw-50">
+                        <img src="/stock_barcode/static/img/barcode.png" alt="Barcode" class="my-1"/>
+                        <div class="o_stock_barcode_laser"/>
+                    </div>
+                    <div class="o_stock_mobile_barcode text-primary fw-bold">welcome</div>
+                </div>
+                <p class="text-center">Use Receipts for Book-In, and Delivery Orders for Book-Out</p>
+            </main>
+        </t>
+        <t t-else="">$0</t>
+    </xpath>
+    
+    <!-- If under warehouse barcode mode, hide the originaloperations buttons -->
+    <xpath expr="//button[hasclass('o_button_operations')]" position="attributes">
+        <attribute name="t-if">!(props.action&amp;&amp;props.action.context&amp;&amp;props.action.context.warehouse_barcode_mode)</attribute>
+    </xpath>
+    
+    <xpath expr="//button[contains(@t-attf-class, 'o_button_inventory')]" position="attributes">
+        <attribute name="t-if">!(props.action&amp;&amp;props.action.context&amp;&amp;props.action.context.warehouse_barcode_mode)</attribute>
+    </xpath>
+    
+    <!-- If under warehouse barcode mode, add the inventory count button and the specific warehouse buttons so it can quickly navigate to the specific slips. -->
+    <xpath expr="//footer" position="inside">
+        <t t-if="props.action&amp;&amp;props.action.context&amp;&amp;props.action.context.warehouse_barcode_mode">
+            <button class="btn rounded-pill shadow mb-3 p-3 w-100 btn-primary" t-on-click="() => this.actionService.doAction('custom_inventory_barcode.action_warehouse_receipts')">Receipts</button>
+            <button class="btn rounded-pill shadow mb-3 p-3 w-100 btn-success" t-on-click="() => this.actionService.doAction('custom_inventory_barcode.action_warehouse_delivery')">Delivery Orders</button>
+            <div class="border-top my-3"/>
+            <button class="btn btn-block btn-info mb-3 p-3 w-100" t-on-click="() => this.actionService.doAction('stock_barcode.stock_barcode_inventory_client_action')">
+                Inventory count
+                <span t-if="this.quantCount" class="ms-2 p-1 px-2 bg-light rounded-circle text-primary" t-out="this.quantCount"/>
+            </button>
+        </t>
+    </xpath>
+</t>
+</templates>
