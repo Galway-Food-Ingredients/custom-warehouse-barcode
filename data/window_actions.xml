@@ -1,1 +1,36 @@
-<?xml version="1.0" encoding="utf-8"?><odoo><record id="action_warehouse_receipts" model="ir.actions.server"><field name="name">Receipts to Process</field><field name="path">warehouse-receipts</field><field name="state">code</field><field name="model_id" ref="stock.model_stock_picking_type"/><field name="code"><![CDATA[pt = env['stock.picking.type'].browse(1); action = pt and pt.get_action_picking_tree_ready_kanban() or {'type': 'ir.actions.act_window_close'}; action]]></field></record><record id="action_warehouse_delivery" model="ir.actions.server"><field name="name">Delivery Orders to Process</field><field name="path">warehouse-deliveries</field><field name="state">code</field><field name="model_id" ref="stock.model_stock_picking_type"/><field name="code"><![CDATA[pt = env['stock.picking.type'].browse(2); action = pt and pt.get_action_picking_tree_ready_kanban() or {'type': 'ir.actions.act_window_close'}; action]]></field></record></odoo>
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_warehouse_receipts" model="ir.actions.server">
+        <field name="name">Receipts to Process</field>
+        <field name="path">warehouse-receipts</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="stock.model_stock_picking_type"/>
+        <field name="code"><![CDATA[
+pt = env['stock.picking.type'].browse(1)
+action = pt and pt.get_action_picking_tree_ready_kanban() or {'type': 'ir.actions.act_window_close'}
+# Drop the list action's own path so the URL keeps this server action's path:
+# reloading the page (e.g. browser / phone back button) then re-runs this action
+# and gets back the receipts context and domain.
+if action.get('path'):
+    action['path'] = False
+action
+]]></field>
+    </record>
+
+    <record id="action_warehouse_delivery" model="ir.actions.server">
+        <field name="name">Delivery Orders to Process</field>
+        <field name="path">warehouse-deliveries</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="stock.model_stock_picking_type"/>
+        <field name="code"><![CDATA[
+pt = env['stock.picking.type'].browse(2)
+action = pt and pt.get_action_picking_tree_ready_kanban() or {'type': 'ir.actions.act_window_close'}
+# Same as receipts: keep this server action's path in the URL.
+if action.get('path'):
+    action['path'] = False
+action
+]]></field>
+    </record>
+
+</odoo>
